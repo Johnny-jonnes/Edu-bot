@@ -1,0 +1,20 @@
+# Dépendances Node
+node_modules/
+
+# Environnements Virtuels Python
+venv/
+env/
+__pycache__/
+*.pyc
+
+# Variables d'environnement (Sécurité)
+.env
+.env.local
+
+# Bases de données locales
+*.db
+*.sqlite3
+
+# Fichiers systèmes
+.DS_Store
+Thumbs.db
