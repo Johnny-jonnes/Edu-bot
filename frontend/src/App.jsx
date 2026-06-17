@@ -4,10 +4,11 @@ import {
   Bot, GraduationCap, LayoutDashboard, ChevronRight,
   Upload, Sparkles, MessageSquare, FileText, Users, BookOpen, Award,
   Stethoscope, Terminal, Scale, Leaf, Pickaxe, TrendingUp, Microscope, Building, Globe, Book, Calculator,
-  LogOut, User as UserIcon, Settings, ChevronDown
+  LogOut, User as UserIcon, Settings, ChevronDown, Sun, Moon
 } from 'lucide-react';
 import useScrollReveal from './hooks/useScrollReveal';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 import ChatInterface from './components/chat/ChatInterface';
 import FilieresCatalog from './components/filieres/FilieresCatalog';
 import Auth from './components/auth/Auth';
@@ -34,6 +35,7 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, isAuthenticated, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -73,6 +75,9 @@ const Navbar = () => {
           Edu<span className="gradient-text">Bot</span>
         </Link>
         <div className="navbar-links">
+          <button className="theme-toggle" onClick={toggleTheme} title={theme === 'dark' ? 'Mode clair' : 'Mode sombre'}>
+            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
           <Link to="/chat" className={`navbar-link ${isActive('/chat') ? 'active' : ''}`}>
             Chat IA
           </Link>
@@ -340,9 +345,11 @@ const AppContent = () => {
 // ─── App Root ────────────────────────────────────────────────────────
 const App = () => (
   <Router>
-    <AuthProvider>
-      <AppContent />
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
+    </ThemeProvider>
   </Router>
 );
 
